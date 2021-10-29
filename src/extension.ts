@@ -10,10 +10,10 @@ export function activate(context: ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
 
-  const teamsChat: DiffView = new DiffView(context);
+  const diffView: DiffView = new DiffView(context);
 
   context.subscriptions.push(
-    commands.registerCommand(SHOW_MENU_ITEM_COMMAND, async (uri1: Uri, uri2: Uri) => await teamsChat.openDiffView(uri1, uri2)),
+    commands.registerCommand(SHOW_MENU_ITEM_COMMAND, async (uri: Uri, uriArr: Uri[]) => await diffView.openDiffView(uri, uriArr)),
   );
 }
 

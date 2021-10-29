@@ -1,18 +1,31 @@
 import { Uri, ViewColumn, WebviewPanel, window, ExtensionContext } from 'vscode';
 import { join } from 'path';
+import Cache from './cache';
 
 export default class DiffView {
   private _extensionPath: string;
+  private _cache: Cache | undefined;
+  private _webviewPanels: WebviewPanel[];
 
-  constructor({ extensionPath }: ExtensionContext) {
+  constructor({ extensionPath, storageUri }: ExtensionContext) {
     this._extensionPath = extensionPath;
+    this._webviewPanels = [];
+    if (storageUri) {
+      this._cache = new Cache(storageUri);
+    }
   }
 
-  async openDiffView(uri1: Uri, uri2: Uri): Promise<void> {
-    if (!uri1 || !uri2) {
-      await window.showErrorMessage('Select 2 Open XML files to compare', { modal: true });
+  async openDiffView(uri: Uri, uriArr: Uri[]): Promise<void> {
+    if (uriArr.length !== 2) {
+      await window.showErrorMessage('Select 2 OXML files to compare', { modal: true });
       return;
     }
+
+    for (const webviewPanel of this._webviewPanels) {
+      webviewPanel.dispose();
+    }
+
+    await this._cache?.createCache(uriArr);
 
     const panel: WebviewPanel = window.createWebviewPanel('compareOpenXmlFiles', 'Compare Open XML Files', ViewColumn.One, {
       enableScripts: true,

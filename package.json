@@ -1,7 +1,8 @@
 {
-	"name": "vscode-with-teams",
-	"displayName": "VSCode with Teams",
-	"description": "A VSCode extension to bring Microsoft Teams into the VSCode editor",
+	"name": "oxml-compare",
+	"displayName": "OXML Compare",
+	"description": "A VSCode extension to compare OXML files",
+	"publisher": "Michael Bowen",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.61.0"
@@ -70,6 +71,7 @@
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.4",
+		"@types/jszip": "^3.4.1",
 		"@types/mocha": "^9.0.0",
 		"@types/node": "14.x",
 		"@types/react": "^17.0.29",
@@ -88,7 +90,9 @@
 		"webpack-cli": "^4.9.0"
 	},
 	"dependencies": {
+		"@fluentui/react": "^8.37.6",
 		"css-loader": "^6.4.0",
+		"jszip": "^3.7.1",
 		"npm-run-all": "^4.1.5",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
