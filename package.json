@@ -1,0 +1,99 @@
+{
+	"name": "vscode-with-teams",
+	"displayName": "VSCode with Teams",
+	"description": "A VSCode extension to bring Microsoft Teams into the VSCode editor",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.61.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:open-xml-compare.compareOXML",
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "open-xml-compare.compareOXML",
+				"title": "Compare Open XML Files",
+				"when": "resourceLangId == oxml"
+			}
+		],
+		"languages": [
+			{
+				"id": "oxml",
+				"extensions": [
+					".docx",
+					".xlsx",
+					".pptx",
+					".odt",
+					".ods",
+					".odp",
+					".docm",
+					".dotm",
+					".xlsm",
+					".pptm",
+					".dotx",
+					".xltx",
+					".xltm",
+					".potx",
+					".sldx",
+					".ppsx"
+				]
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"when": "resourceLangId == oxml",
+					"command": "open-xml-compare.compareOXML",
+					"title": "Compare OXML Files",
+					"group": "3_compare"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "npm-run-all compile:*",
+		"watch": "npm-run-all -p watch:*",
+		"compile:extension": "tsc -p ./",
+		"compile:views": "webpack --mode development",
+		"watch:extension": "tsc -watch -p ./",
+		"watch:views": "webpack --watch --mode development",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"@types/react": "^17.0.29",
+		"@types/react-dom": "^17.0.9",
+		"@types/vscode": "^1.61.0",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.33.0",
+		"@vscode/test-electron": "^1.6.2",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.7",
+		"mocha": "^9.1.1",
+		"prettier": "^1.19.1",
+		"prettier-eslint": "^10.1.1",
+		"typescript": "^4.4.3",
+		"webpack": "^5.58.1",
+		"webpack-cli": "^4.9.0"
+	},
+	"dependencies": {
+		"css-loader": "^6.4.0",
+		"npm-run-all": "^4.1.5",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"save-dev": "^0.0.1-security",
+		"style-loader": "^3.3.0",
+		"ts-loader": "^9.2.6"
+	}
+}

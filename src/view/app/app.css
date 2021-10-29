@@ -1,0 +1,20 @@
+.container {
+  display         : flex;
+  align-items     : stretch;
+  align-content   : stretch;
+  background-color: blueviolet;
+  justify-content : stretch;
+  height          : 100vh;
+}
+
+.file-list-container {
+  width: 50%;
+}
+
+.file-list-container:first-child {
+  background-color: aquamarine;
+}
+
+.file-list-container:last-child {
+  background-color: chocolate;
+}
