@@ -25,7 +25,7 @@ export default class DiffView {
       webviewPanel.dispose();
     }
 
-    await this._cache?.createCache(uriArr);
+    const zips = await this._cache?.createCache(uriArr);
 
     const panel: WebviewPanel = window.createWebviewPanel('compareOpenXmlFiles', 'Compare Open XML Files', ViewColumn.One, {
       enableScripts: true,
@@ -50,6 +50,7 @@ export default class DiffView {
 
         <script>
           window.acquireVsCodeApi = acquireVsCodeApi;
+          window.fileData = ${JSON.stringify(zips)}
         </script>
       </head>
       <body>

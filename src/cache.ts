@@ -1,6 +1,8 @@
-import { Uri, workspace } from 'vscode';
+import { Uri, workspace, window } from 'vscode';
 import JSZip = require('jszip');
 import { dirname, join } from 'path';
+import { stat } from 'fs/promises';
+import { existsSync } from 'fs';
 
 export default class Cache {
   private _cacheFolderUri: Uri;
@@ -14,24 +16,38 @@ export default class Cache {
     this._file2Folder = 'second';
     this._textEncoder = new TextEncoder();
   }
-  async createCache([uri1, uri2]: Uri[]): Promise<void> {
-    await workspace.fs.createDirectory(this._cacheFolderUri);
-    const file1Buffer: Uint8Array = await workspace.fs.readFile(uri1);
-    const file2Buffer: Uint8Array = await workspace.fs.readFile(uri2);
-    const file1Zip: JSZip = await JSZip.loadAsync(file1Buffer);
-    const file2Zip: JSZip = await JSZip.loadAsync(file2Buffer);
+  async createCache([uri1, uri2]: Uri[]): Promise<JSZip[] | void> {
+    try {
+      if (existsSync(this._cacheFolderUri.fsPath)) {
+        await workspace.fs.delete(this._cacheFolderUri, { recursive: true, useTrash: false });
+      }
 
-    await this.createFiles(file1Zip, join(this._cacheFolderUri.fsPath, 'first'));
-    await this.createFiles(file2Zip, join(this._cacheFolderUri.fsPath, 'second'));
-    console.log('created');
+      await workspace.fs.createDirectory(this._cacheFolderUri);
+      const file1Buffer: Uint8Array = await workspace.fs.readFile(uri1);
+      const file2Buffer: Uint8Array = await workspace.fs.readFile(uri2);
+      const file1Zip: JSZip = await JSZip.loadAsync(file1Buffer);
+      const file2Zip: JSZip = await JSZip.loadAsync(file2Buffer);
+
+      await this.createFiles(file1Zip, join(this._cacheFolderUri.fsPath, 'first'));
+      await this.createFiles(file2Zip, join(this._cacheFolderUri.fsPath, 'second'));
+
+      return [file1Zip, file2Zip];
+    } catch (err) {
+      const error = <Error>err;
+      await window.showErrorMessage(error?.message || error.toString());
+    }
   }
 
   async createFiles(zip: JSZip, folder: string) {
     for (const path of Object.keys(zip.files)) {
       const filePath = join(folder, ...path.split('/'));
       const folderPath = dirname(filePath);
-      await workspace.fs.createDirectory(Uri.file(folderPath));
-      await workspace.fs.writeFile(Uri.file(filePath), (await zip.file(path)?.async('uint8array')) || new Uint8Array());
+      const data: Uint8Array | undefined = await zip.file(path)?.async('uint8array');
+
+      if (data) {
+        await workspace.fs.createDirectory(Uri.file(folderPath));
+        await workspace.fs.writeFile(Uri.file(filePath), data);
+      }
     }
   }
 }
