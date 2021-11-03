@@ -6,7 +6,8 @@
       "outDir": "oxmlDiffViewer",
       "lib": [
           "es6",
-          "dom"
+          "dom",
+          "DOM.Iterable"
       ],
       "jsx": "react",
       "sourceMap": true,
@@ -14,7 +15,8 @@
       "noUnusedLocals": true,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
-      "experimentalDecorators": true
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true
   },
   "exclude": [
       "node_modules"

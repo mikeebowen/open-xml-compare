@@ -1,0 +1,108 @@
+{
+  "count": 27,
+  "key": "group0",
+  "name": "group 0",
+  "startIndex": 0,
+  "level": 0,
+  "children": [
+    {
+      "count": 9,
+      "key": "group0-0",
+      "name": "group 0-0",
+      "startIndex": 0,
+      "level": 1,
+      "children": [
+        {
+          "count": 3,
+          "key": "group0-0-0",
+          "name": "group 0-0-0",
+          "startIndex": 0,
+          "level": 2,
+          "children": []
+        },
+        {
+          "count": 3,
+          "key": "group0-0-1",
+          "name": "group 0-0-1",
+          "startIndex": 3,
+          "level": 2,
+          "children": []
+        },
+        {
+          "count": 3,
+          "key": "group0-0-2",
+          "name": "group 0-0-2",
+          "startIndex": 6,
+          "level": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "count": 9,
+      "key": "group0-1",
+      "name": "group 0-1",
+      "startIndex": 9,
+      "level": 1,
+      "children": [
+        {
+          "count": 3,
+          "key": "group0-1-0",
+          "name": "group 0-1-0",
+          "startIndex": 9,
+          "level": 2,
+          "children": []
+        },
+        {
+          "count": 3,
+          "key": "group0-1-1",
+          "name": "group 0-1-1",
+          "startIndex": 12,
+          "level": 2,
+          "children": []
+        },
+        {
+          "count": 3,
+          "key": "group0-1-2",
+          "name": "group 0-1-2",
+          "startIndex": 15,
+          "level": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "count": 9,
+      "key": "group0-2",
+      "name": "group 0-2",
+      "startIndex": 18,
+      "level": 1,
+      "children": [
+        {
+          "count": 3,
+          "key": "group0-2-0",
+          "name": "group 0-2-0",
+          "startIndex": 18,
+          "level": 2,
+          "children": []
+        },
+        {
+          "count": 3,
+          "key": "group0-2-1",
+          "name": "group 0-2-1",
+          "startIndex": 21,
+          "level": 2,
+          "children": []
+        },
+        {
+          "count": 3,
+          "key": "group0-2-2",
+          "name": "group 0-2-2",
+          "startIndex": 24,
+          "level": 2,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

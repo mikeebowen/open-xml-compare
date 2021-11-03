@@ -47,7 +47,6 @@ export default class DiffView {
                       img-src https:;
                       script-src 'unsafe-eval' 'unsafe-inline' vscode-resource:;
                       style-src vscode-resource: 'unsafe-inline';">
-
         <script>
           window.acquireVsCodeApi = acquireVsCodeApi;
           window.fileData = ${JSON.stringify(zips)}
