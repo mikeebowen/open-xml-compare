@@ -2,7 +2,7 @@ import * as React from 'react';
 import JSZip from 'jszip';
 import { Treebeard } from 'react-treebeard';
 import { readFile } from 'fs/promises';
-import { dirname } from 'path';
+import { join } from 'path';
 
 import './app.css';
 
@@ -60,7 +60,7 @@ const showDiff = ({ vscode, fileData }) => {
   function onToggle (node: any, toggled: boolean) {
     console.log('🚀 ~ file: App.tsx ~ line 59 ~ onToggle ~ toggled', toggled);
     // node.toggled = !node.toggled;
-    console.log('🚀 ~ file: App.tsx ~ line 60 ~ onToggle ~ node', dirname(basePath));
+    console.log('🚀 ~ file: App.tsx ~ line 60 ~ onToggle ~ node', join(basePath, ...node.key.split('/')));
 
     if (cursor) {
       setCursor({ ...cursor, active: false });
