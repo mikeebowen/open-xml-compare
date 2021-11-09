@@ -1,5 +1,5 @@
 import { Uri, ViewColumn, WebviewPanel, window, ExtensionContext } from 'vscode';
-import { join } from 'path';
+import { basename, join } from 'path';
 import Cache from './cache';
 
 export default class DiffView {
@@ -49,7 +49,11 @@ export default class DiffView {
                       style-src vscode-resource: 'unsafe-inline';">
         <script>
           window.acquireVsCodeApi = acquireVsCodeApi;
-          window.fileData = ${JSON.stringify(zips)}
+          window.fileData = ${JSON.stringify({
+    first: { name: basename(uriArr[0].fsPath), zip: zips && zips[0] },
+    second: { name: basename(uriArr[1].fsPath), zip: zips && zips[1] },
+    basePath: this._cache?.cacheFolderUri,
+  })}
         </script>
       </head>
       <body>

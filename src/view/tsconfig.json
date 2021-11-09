@@ -9,6 +9,7 @@
           "dom",
           "DOM.Iterable"
       ],
+      "types": ["node"],
       "jsx": "react",
       "sourceMap": true,
       "rootDir": "..",
@@ -16,8 +17,9 @@
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
       "experimentalDecorators": true,
-      "allowSyntheticDefaultImports": true
-  },
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true
+    },
   "exclude": [
       "node_modules"
   ]

@@ -1,20 +1,26 @@
 import { Uri, workspace, window } from 'vscode';
-import JSZip = require('jszip');
+import JSZip from 'jszip';
 import { dirname, join } from 'path';
-import { stat } from 'fs/promises';
 import { existsSync } from 'fs';
+import xmlFormatter from 'xml-formatter';
 
 export default class Cache {
   private _cacheFolderUri: Uri;
   private _file1Folder: string;
   private _file2Folder: string;
   private _textEncoder: TextEncoder;
+  private _textDecoder: TextDecoder;
 
   constructor(cacheFolderUri: Uri) {
     this._cacheFolderUri = cacheFolderUri;
     this._file1Folder = 'first';
     this._file2Folder = 'second';
     this._textEncoder = new TextEncoder();
+    this._textDecoder = new TextDecoder();
+  }
+
+  get cacheFolderUri() {
+    return this._cacheFolderUri;
   }
   async createCache([uri1, uri2]: Uri[]): Promise<JSZip[] | void> {
     try {
@@ -46,7 +52,15 @@ export default class Cache {
 
       if (data) {
         await workspace.fs.createDirectory(Uri.file(folderPath));
-        await workspace.fs.writeFile(Uri.file(filePath), data);
+
+        const fileContents: string = this._textDecoder.decode(data);
+
+        if (fileContents.startsWith('<?xml')) {
+          const formatted: Uint8Array = this._textEncoder.encode(xmlFormatter(fileContents, { indentation: '  ', collapseContent: true }));
+          await workspace.fs.writeFile(Uri.file(filePath), formatted);
+        } else {
+          await workspace.fs.writeFile(Uri.file(filePath), data);
+        }
       }
     }
   }
